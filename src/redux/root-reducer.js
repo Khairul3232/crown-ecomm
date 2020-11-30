@@ -12,6 +12,8 @@ import storage from 'redux-persist/lib/storage';
 // alternatively
 // import sessionStorage from 'redux-persist/lib/storage';
 
+import shopReducer from './shop/shop.reducer';
+
 
 // json object that represents the possible configs for redux-persist
 const persistConfig = {
@@ -24,7 +26,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     user: userReducer,
     cart: cartReducer,
-    directory: directoryReducer
+    directory: directoryReducer,
+    shop: shopReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
