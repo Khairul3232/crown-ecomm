@@ -40,7 +40,7 @@ class App extends React.Component {
         // addCollectionAndDocuments('collections', collectionsArray.map(({ title, items }) => ({title, items})));
       }
 
-    });
+    }, error => console.log("error on auth:", error));
   }
 
   componentWillUnmount() { 
