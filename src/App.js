@@ -10,32 +10,15 @@ import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
 import CheckoutPage from './pages/checkout/checkout.component';
-
+import { checkUserSession } from './redux/user/user.actions';
 // import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 class App extends React.Component {
 
   unsubscribeFromAuth = null;
 
   componentDidMount() { 
-
-    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => { 
-      
-    //   if (userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
-
-    //     // check if db has updated at that reference with the data, because we need to update state with id, and other info
-    //     userRef.onSnapshot(snapShot => { 
-    //       setCurrentUser({
-    //           id: snapShot.id,
-    //           ...snapShot.data()
-    //       });
-    //     });
-    //   }
-    //   else {
-    //     setCurrentUser(userAuth);
-    //   }
-
-    // }, error => console.log("error on auth:", error));
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
   componentWillUnmount() { 
@@ -61,12 +44,12 @@ class App extends React.Component {
   }
 }
 
-// const mapStateToProps = ({ user }) => ({
-//   currentUser: user.currentUser
-// });
-
 const mapStateToProps = createStructuredSelector ({
   currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
